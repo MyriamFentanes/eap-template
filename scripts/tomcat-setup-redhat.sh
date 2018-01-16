@@ -6,10 +6,12 @@
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
-
+subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach
+#Change this for an eval subscription and add a parameter#
+echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.progress.txt
 # Install Apache2, Tomcat7 and then build mod-jk package
 yum install -y httpd > /home/$1/install.out.txt 2>&1
-subscription-manager repos --enable=jb-eap-7-for-rhel-RHEL_VERSION-server-rpms
+subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms
 yum groupinstall jboss-eap7
 yum install -y gcc >> /home/$1/install.out.txt 2>&1
 yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1

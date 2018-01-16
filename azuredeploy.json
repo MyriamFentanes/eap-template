@@ -123,34 +123,6 @@
               "priority": 1010,
               "direction": "Inbound"
             }
-          },
-         {
-            "name": "default-allow-ftp",
-            "properties": {
-              "description": "Allow FTP",
-              "protocol": "Tcp",
-              "sourcePortRange": "*",
-              "destinationPortRange": "21",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1020,
-              "direction": "Inbound"
-            }
-          },
-          {
-            "name": "default-allow-ftps",
-            "properties": {
-              "description": "Allow FTPS",
-              "protocol": "*",
-              "sourcePortRange": "*",
-              "destinationPortRange": "13450-13454",
-              "sourceAddressPrefix": "Internet",
-              "destinationAddressPrefix": "*",
-              "access": "Allow",
-              "priority": 1030,
-              "direction": "Inbound"
-            }
           }
         ]
       }
@@ -269,7 +241,7 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/Azure/azure-quickstart-templates/master/vsts-tomcat-redhat-vm/scripts/tomcat-setup-redhat.sh"
+            "https://raw.githubusercontent.com/MyriamFentanes/eap-template/master/scripts/tomcat-setup-redhat.sh"  
           ],
           "commandToExecute": "[concat('sh tomcat-setup-redhat.sh',' ',parameters('adminUsername'),' ',parameters('tomcatUserName'),' ',parameters('tomcatPassword'),' ',parameters('sshPassPhrase'))]"
         }
