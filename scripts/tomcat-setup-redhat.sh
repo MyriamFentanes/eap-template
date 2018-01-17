@@ -31,6 +31,9 @@ cd /home/$1
 echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
 git clone https://github.com/MyriamFentanes/pollo.git >> /home/$1/install.out.txt 2>&1
 
+echo "Deploying the sample pollo app" >> /home/$1/install.progress.txt
+mv -R /home/$1/pollo $EAP_HOME/standalone/deployments/pollo.war
+
 #wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
 #tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
 #cd /home/$1/tomcat-connectors-1.2.41-src/native/
