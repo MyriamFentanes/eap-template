@@ -23,13 +23,13 @@
     "tomcatUserName": {
       "type": "string",
       "metadata": {
-        "description": "User name for Tomcat manager"
+        "description": "User name for EAP manager"
       }
     },
     "tomcatPassword": {
       "type": "string",
       "metadata": {
-        "description": "Password for Tomcat manager"
+        "description": "Password for EAP manager"
       }
     },
     "sshPassPhrase": {
