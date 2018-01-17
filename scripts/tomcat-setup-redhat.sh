@@ -16,7 +16,7 @@ subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/
 yum-config-manager --disable rhel-7-server-htb-rpms
 yum update
 echo "Enabling EAP7 repos" >> /home/$1/install.progress.txt
-yum groupinstall jboss-eap7 > /home/$1/install.out.txt 2>&1
+yum groupinstall -y jboss-eap7 > /home/$1/install.out.txt 2>&1
 #yum install -y gcc >> /home/$1/install.out.txt 2>&1
 #yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
 yum install -y httpd-devel >> /home/$1/install.out.txt 2>&1
