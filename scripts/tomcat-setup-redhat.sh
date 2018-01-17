@@ -12,6 +12,7 @@ echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.p
 # Install Apache2, Tomcat7 and then build mod-jk package
 yum install -y httpd > /home/$1/install.out.txt 2>&1
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms
+echo "Enabling EAP7 repos" >> /home/$1/install.progress.txt
 yum groupinstall jboss-eap7
 yum install -y gcc >> /home/$1/install.out.txt 2>&1
 yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
@@ -173,63 +174,6 @@ echo "SSH Private key:" >> /home/$1/vsts_ssh_info
 cat id_rsa >> /home/$1/vsts_ssh_info
 chown $1.tomcat /home/$1/vsts_ssh_info
 
-
-echo "Installing and Configuring FTP" >> /home/$1/install.progress.txt
-
-# Install the vsftp package (i.e. FTP) and create some needed directories:
-yum install -y vsftpd >> /home/$1/install.out.txt 2>&1
-mkdir /var/run/vsftpd
-mkdir /var/run/vsftpd/empty
-
-
-# Generate an SSL self-signed certificate:
-mkdir /etc/ssl/private
-# Generate SSL self-signed certificate
-echo US > /tmp/info.txt
-echo NC >> /tmp/info.txt
-echo Raleigh >> /tmp/info.txt
-echo Microsoft >> /tmp/info.txt
-echo Team Services >> /tmp/info.txt
-echo $1  >> /tmp/info.txt
-echo $1@  >> /tmp/info.txt
-cat /tmp/info.txt | openssl req -x509 -nodes -days 365 -newkey rsa:1024 -keyout /etc/ssl/private/vsftpd.pem -out /etc/ssl/private/vsftpd.pem
-rm -f /tmp/info.txt
-
-# Backup original and create a new vsftp conf file
-cp /etc/vsftpd/vsftpd.conf /etc/vsftpd/ORIG_vsftpd.conf
-echo "listen=NO" > /tmp/vsftpd.conf
-echo "listen_ipv6=YES" >> /tmp/vsftpd.conf
-echo "anonymous_enable=NO" >> /tmp/vsftpd.conf
-echo "local_enable=YES" >> /tmp/vsftpd.conf
-echo "write_enable=YES" >> /tmp/vsftpd.conf
-echo "local_umask=002 # this is different than the default 022" >> /tmp/vsftpd.conf
-echo "dirmessage_enable=YES" >> /tmp/vsftpd.conf
-echo "use_localtime=YES" >> /tmp/vsftpd.conf
-echo "xferlog_enable=YES" >> /tmp/vsftpd.conf
-echo "connect_from_port_20=YES" >> /tmp/vsftpd.conf
-echo "xferlog_file=/var/log/vsftpd.log" >> /tmp/vsftpd.conf
-echo "ls_recurse_enable=YES" >> /tmp/vsftpd.conf
-echo "secure_chroot_dir=/var/run/vsftpd/empty" >> /tmp/vsftpd.conf
-echo "pam_service_name=vsftpd" >> /tmp/vsftpd.conf
-echo "# ftps/ssl specific cofig stuff below this line" >> /tmp/vsftpd.conf
-echo "rsa_cert_file=/etc/ssl/private/vsftpd.pem" >> /tmp/vsftpd.conf
-echo "rsa_private_key_file=/etc/ssl/private/vsftpd.pem" >> /tmp/vsftpd.conf
-echo "ssl_enable=YES" >> /tmp/vsftpd.conf
-echo "allow_anon_ssl=NO" >> /tmp/vsftpd.conf
-echo "force_local_data_ssl=YES" >> /tmp/vsftpd.conf
-echo "force_local_logins_ssl=YES" >> /tmp/vsftpd.conf
-echo "ssl_tlsv1=YES" >> /tmp/vsftpd.conf
-echo "ssl_sslv2=NO" >> /tmp/vsftpd.conf
-echo "ssl_sslv3=NO" >> /tmp/vsftpd.conf
-echo "require_ssl_reuse=NO" >> /tmp/vsftpd.conf
-echo "ssl_ciphers=HIGH" >> /tmp/vsftpd.conf
-echo "debug_ssl=YES" >> /tmp/vsftpd.conf
-echo "pasv_enable=YES" >> /tmp/vsftpd.conf
-echo "pasv_address=`wget http://ipinfo.io/ip -qO -`" >> /tmp/vsftpd.conf
-echo "pasv_min_port=13450" >> /tmp/vsftpd.conf
-echo "pasv_max_port=13454" >> /tmp/vsftpd.conf
-mv /tmp/vsftpd.conf /etc/vsftpd
-chmod 0600 /etc/vsftpd/vsftpd.conf
 
 # Configure SELinux to use Linux ACL's for file protection
 setsebool -P allow_ftpd_full_access 1 >> /home/$1/install.out.txt 2>&1
