@@ -5,6 +5,9 @@
 /bin/date +%H:%M:%S > /home/$1/install.progress.txt
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
+export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly/"
+export EAP_USER= $2
+echo "EAP admin user"+$EAP_USER >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1
 
@@ -30,6 +33,12 @@ cd /home/$1
 #make >> /home/$1/install.out.txt 2>&1
 #make install >> /home/$1/install.out.txt 2>&1
 #cd /home/$1
+
+echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
+
+$EAP_HOME/bin/add-user.sh -u 'mgmtuser1' -p 'password1!' -g 'guest,mgmtgroup'
+
+
 
 # Create a mod_jk config file
 echo "# Load mod_jk module" > /etc/httpd/conf/mod_jk.conf
@@ -109,9 +118,6 @@ echo "Done." >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
 
 
-echo "Configuring Tomcat manager" >> /home/$1/install.progress.txt
-
-# Setup permissions for the Tomcat manager
 # mv /etc/tomcat/tomcat-users.xml /etc/tomcat/ORIG_tomcat-users.xml
 # echo "<?xml version='1.0' encoding='utf-8'?>" > /tmp/tomcat-users.xml
 # echo "<tomcat-users>" >> /tmp/tomcat-users.xml
