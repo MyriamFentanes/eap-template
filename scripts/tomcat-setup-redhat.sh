@@ -6,19 +6,19 @@
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
 export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly/"
-export EAP_USER= $2
-echo "EAP admin user"+$EAP_USER >> /home/$1/install.progress.txt
+EAP_USER=$2
+echo "EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1
 
 #Change this for an eval subscription and add a parameter#
 echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.progress.txt
-# Install Apache2, Tomcat7 and then build mod-jk package
+# Install Apache2, EAP7 and then build mod-jk package
 yum install -y httpd > /home/$1/install.out.txt 2>&1
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/install.out.txt 2>&1
 yum-config-manager --disable rhel-7-server-htb-rpms
 yum update
-echo "Enabling EAP7 repos" >> /home/$1/install.progress.txt
+echo "Installing EAP7 repos" >> /home/$1/install.progress.txt
 yum groupinstall -y jboss-eap7 > /home/$1/install.out.txt 2>&1
 echo "Enabling EAP7 service" >> /home/$1/install.progress.txt
 systemctl enable eap7-standalone.service
@@ -26,6 +26,9 @@ systemctl enable eap7-standalone.service
 #yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
 yum install -y httpd-devel >> /home/$1/install.out.txt 2>&1
 cd /home/$1
+echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
+git clone https://github.com/MyriamFentanes/pollo.git
+
 #wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
 #tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
 #cd /home/$1/tomcat-connectors-1.2.41-src/native/
@@ -36,7 +39,7 @@ cd /home/$1
 
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
 
-$EAP_HOME/bin/add-user.sh -u 'mgmtuser1' -p 'password1!' -g 'guest,mgmtgroup'
+$EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
 
 
 
