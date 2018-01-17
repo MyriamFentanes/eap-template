@@ -6,25 +6,26 @@
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
-subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach
+subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.out.txt 2>&1
+
 #Change this for an eval subscription and add a parameter#
 echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.progress.txt
 # Install Apache2, Tomcat7 and then build mod-jk package
 yum install -y httpd > /home/$1/install.out.txt 2>&1
-subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms
+subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/install.out.txt 2>&1
 echo "Enabling EAP7 repos" >> /home/$1/install.progress.txt
 yum groupinstall jboss-eap7
-yum install -y gcc >> /home/$1/install.out.txt 2>&1
-yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
+#yum install -y gcc >> /home/$1/install.out.txt 2>&1
+#yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
 yum install -y httpd-devel >> /home/$1/install.out.txt 2>&1
 cd /home/$1
-wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
-tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
-cd /home/$1/tomcat-connectors-1.2.41-src/native/
-./configure --with-apxs=/usr/bin/apxs >> /home/$1/install.out.txt 2>&1
-make >> /home/$1/install.out.txt 2>&1
-make install >> /home/$1/install.out.txt 2>&1
-cd /home/$1
+#wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
+#tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
+#cd /home/$1/tomcat-connectors-1.2.41-src/native/
+#./configure --with-apxs=/usr/bin/apxs >> /home/$1/install.out.txt 2>&1
+#make >> /home/$1/install.out.txt 2>&1
+#make install >> /home/$1/install.out.txt 2>&1
+#cd /home/$1
 
 # Create a mod_jk config file
 echo "# Load mod_jk module" > /etc/httpd/conf/mod_jk.conf
@@ -107,23 +108,23 @@ echo "Done." >> /home/$1/install.progress.txt
 echo "Configuring Tomcat manager" >> /home/$1/install.progress.txt
 
 # Setup permissions for the Tomcat manager
-mv /etc/tomcat/tomcat-users.xml /etc/tomcat/ORIG_tomcat-users.xml
-echo "<?xml version='1.0' encoding='utf-8'?>" > /tmp/tomcat-users.xml
-echo "<tomcat-users>" >> /tmp/tomcat-users.xml
-echo "<role rolename=\"tomcat\"/>" >> /tmp/tomcat-users.xml
-echo "<role rolename=\"manager-script\"/>" >> /tmp/tomcat-users.xml
-echo "<role rolename=\"manager-gui\"/>" >> /tmp/tomcat-users.xml
-echo "<role rolename=\"manager\"/>" >> /tmp/tomcat-users.xml
-echo "<role rolename=\"admin-gui\"/>" >> /tmp/tomcat-users.xml
-echo "<user username=\"tomcat\" password=\"tomcat\" roles=\"tomcat\"/>" >> /tmp/tomcat-users.xml
-echo "<user username=\"$2\" password=\"$3\" roles=\"tomcat,manager-script,manager-gui,admin-gui\"/>" >> /tmp/tomcat-users.xml
-echo "</tomcat-users>" >> /tmp/tomcat-users.xml
-mv /tmp/tomcat-users.xml /etc/tomcat
-chown root.tomcat /etc/tomcat/tomcat-users.xml 
-chmod 0640 /etc/tomcat/tomcat-users.xml
+# mv /etc/tomcat/tomcat-users.xml /etc/tomcat/ORIG_tomcat-users.xml
+# echo "<?xml version='1.0' encoding='utf-8'?>" > /tmp/tomcat-users.xml
+# echo "<tomcat-users>" >> /tmp/tomcat-users.xml
+# echo "<role rolename=\"tomcat\"/>" >> /tmp/tomcat-users.xml
+# echo "<role rolename=\"manager-script\"/>" >> /tmp/tomcat-users.xml
+# echo "<role rolename=\"manager-gui\"/>" >> /tmp/tomcat-users.xml
+# echo "<role rolename=\"manager\"/>" >> /tmp/tomcat-users.xml
+# echo "<role rolename=\"admin-gui\"/>" >> /tmp/tomcat-users.xml
+# echo "<user username=\"tomcat\" password=\"tomcat\" roles=\"tomcat\"/>" >> /tmp/tomcat-users.xml
+# echo "<user username=\"$2\" password=\"$3\" roles=\"tomcat,manager-script,manager-gui,admin-gui\"/>" >> /tmp/tomcat-users.xml
+# echo "</tomcat-users>" >> /tmp/tomcat-users.xml
+# mv /tmp/tomcat-users.xml /etc/tomcat
+# chown root.tomcat /etc/tomcat/tomcat-users.xml 
+# chmod 0640 /etc/tomcat/tomcat-users.xml
 
 # Restart httpd and tomcat servers
-service tomcat restart >> /home/$1/install.out.txt 2>&1
+# service tomcat restart >> /home/$1/install.out.txt 2>&1
 service httpd restart >> /home/$1/install.out.txt 2>&1
 
 echo "Done." >> /home/$1/install.progress.txt
