@@ -22,7 +22,6 @@
     },
     "tomcatUserName": {
       "type": "string",
-      "defaultValue": "tcdeploy",
       "metadata": {
         "description": "User name for Tomcat manager"
       }
