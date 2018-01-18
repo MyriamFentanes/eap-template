@@ -42,8 +42,8 @@ echo "Configuring public administration interface" >> /home/$1/install.progress.
 #sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
 
 echo "Configuring selected profile" >> /home/$1/install.progress.txt
-mv $EAP_HOME/$PROFILE/configuration/standalone.xml $EAP_HOME/$PROFILE/configuration/standalone.xml.bak
-mv $EAP_HOME/$PROFILE/configuration/standalone-full.xml $EAP_HOME/$PROFILE/configuration/standalone.xml
+#mv $EAP_HOME/$PROFILE/configuration/standalone.xml $EAP_HOME/$PROFILE/configuration/standalone.xml.bak
+#mv $EAP_HOME/$PROFILE/configuration/standalone-full.xml $EAP_HOME/$PROFILE/configuration/standalone.xml
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
