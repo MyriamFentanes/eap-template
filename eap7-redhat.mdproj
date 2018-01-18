@@ -10,7 +10,7 @@
     <OutputPath>.\</OutputPath>
   </PropertyGroup>
   <ItemGroup>
-    <None Include="scripts\tomcat-setup-redhat.sh" />
+    <None Include="scripts\eap-setup-redhat.sh" />
     <None Include="README.md" />
     <None Include="azuredeploy.json" />
     <None Include="azuredeploy.parameters.json" />
