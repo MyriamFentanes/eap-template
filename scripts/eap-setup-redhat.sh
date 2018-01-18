@@ -36,7 +36,6 @@ echo "Configure EAP7 RPM file" >> /home/$1/install.progress.txt
 sed -i 'WILDFLY_SERVER_CONFIG=standalone-full.xml' $EAP_RPM_CONF_STANDALONE
 sed -i 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' $EAP_RPM_CONF_STANDALONE
 
-
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
 
@@ -64,11 +63,6 @@ firewall-cmd --reload  >> /home/$1/install.out.txt 2>&1
 echo "Done." >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
 
-
-echo "Done." >> /home/$1/install.progress.txt
-/bin/date +%H:%M:%S >> /home/$1/install.progress.txt
-
-
 echo "Configuring SSH" >> /home/$1/install.progress.txt
 echo "Done." >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
@@ -81,9 +75,9 @@ echo "    ForceCommand internal-sftp -u 002" >> /etc/ssh/sshd_config
 
 # Change group of user to same as JBoss
 echo "Changing group of user "$1  >> /home/$1/install.out.txt 2>&1
-#gpasswd -d $1 $1 >> /home/$1/install.out.txt 2>&1
-#gpasswd -a $1 tomcat >> /home/$1/install.out.txt 2>&1
-#usermod -g tomcat $1 >> /home/$1/install.out.txt 2>&1
+#gpasswd -d $1 jboss >> /home/$1/install.out.txt 2>&1
+#gpasswd -a $1 jboss >> /home/$1/install.out.txt 2>&1
+#usermod -g jboss $1 >> /home/$1/install.out.txt 2>&1
 
 
 # Configure the default umask for SSH to enable RW for user and group
