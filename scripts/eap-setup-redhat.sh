@@ -24,9 +24,7 @@ echo "Installing EAP7 repos" >> /home/$1/install.progress.txt
 yum groupinstall -y jboss-eap7 > /home/$1/install.out.txt 2>&1
 echo "Enabling EAP7 service" >> /home/$1/install.progress.txt
 systemctl enable eap7-standalone.service
-#yum install -y gcc >> /home/$1/install.out.txt 2>&1
-#yum install -y gcc-c++ >> /home/$1/install.out.txt 2>&1
-yum install -y httpd-devel >> /home/$1/install.out.txt 2>&1
+echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
 
 cd /home/$1
@@ -40,16 +38,12 @@ echo "Deploying the sample pollo app" >> /home/$1/install.progress.txt
 mv /home/$1/pollo/target/pollo $EAP_HOME/standalone/deployments/pollo.war > /home/$1/install.out.txt 2>&1
 cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
 
-#wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
-#tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
-#cd /home/$1/tomcat-connectors-1.2.41-src/native/
-#./configure --with-apxs=/usr/bin/apxs >> /home/$1/install.out.txt 2>&1
-#make >> /home/$1/install.out.txt 2>&1
-#make install >> /home/$1/install.out.txt 2>&1
-#cd /home/$1
-
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
 $EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
+
+echo "Configuring public administration interface" >> /home/$1/install.progress.txt
+sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
+
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
