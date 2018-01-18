@@ -23,6 +23,9 @@
         "eapPassword": {
           "value": "r3dh4t1!"
         },
+        "eapProfile": {
+           "value": "full"
+        },
         "sshPassPhrase": {
           "value": "r3dh4t1!"
         }

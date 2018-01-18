@@ -45,6 +45,12 @@
         "description": "Password for EAP manager"
       }
     },
+    "eapProfile": {
+      "type": "string",
+      "metadata": {
+        "description": "EAP profile to use"
+      }
+    },
     "sshPassPhrase": {
       "type": "string",
       "metadata": {

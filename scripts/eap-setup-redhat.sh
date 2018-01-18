@@ -6,7 +6,11 @@
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
 export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
+export EAP_RPM_CONF_STANDALONE="/etc/opt/rh/eap7/wildfly/eap7-standalone.conf"
+export EAP_RPM_CONF_DOMAIN="/etc/opt/rh/eap7/wildfly/eap7-domain.conf"
+
 EAP_USER=$2
+EAP_PASSWORD=$3
 RHSM_USER=$4
 RHSM_PASSWORD=$5
 PROFILE=standalone 
@@ -16,15 +20,23 @@ subscription-manager register --username mfentane@redhat.com --password Myr1am84
 
 #Change this for an eval subscription and add a parameter#
 echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.progress.txt
-# Install Apache2, EAP7 and then build mod-jk package
-yum install -y httpd > /home/$1/install.out.txt 2>&1
+# Install EAP7 
 subscription-manager repos --enable=jb-eap-7-for-rhel-7-server-rpms >> /home/$1/install.out.txt 2>&1
 yum-config-manager --disable rhel-7-server-htb-rpms
 yum update
+
 echo "Installing EAP7 repos" >> /home/$1/install.progress.txt
 yum groupinstall -y jboss-eap7 > /home/$1/install.out.txt 2>&1
+
 echo "Enabling EAP7 service" >> /home/$1/install.progress.txt
 systemctl enable eap7-standalone.service
+
+echo "Configure EAP7 RPM file" >> /home/$1/install.progress.txt
+
+sed -i 'WILDFLY_SERVER_CONFIG=standalone-full.xml' $EAP_RPM_CONF_STANDALONE
+sed -i 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' $EAP_RPM_CONF_STANDALONE
+
+
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
 
@@ -38,13 +50,6 @@ cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
 
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
 $EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
-
-echo "Configuring public administration interface" >> /home/$1/install.progress.txt
-#sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
-
-echo "Configuring selected profile" >> /home/$1/install.progress.txt
-#mv $EAP_HOME/$PROFILE/configuration/standalone.xml $EAP_HOME/$PROFILE/configuration/standalone.xml.bak
-#mv $EAP_HOME/$PROFILE/configuration/standalone-full.xml $EAP_HOME/$PROFILE/configuration/standalone.xml
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
