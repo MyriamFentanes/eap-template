@@ -8,13 +8,19 @@
         "adminPassword": {
             "value": "r3dh4t1!"
         },
+        "rhsmUserName": {
+            "value": "mfentane@redhat.com"
+        },
+        "rhsmPassword": {
+           "value": "Myr1am84!"
+        },
         "dnsLabelPrefix": {
             "value": "GEN-UNIQUE"
         },
-        "tomcatUserName": {
+        "eapUserName": {
             "value": "tomcat"
         },
-        "tomcatPassword": {
+        "eapPassword": {
           "value": "r3dh4t1!"
         },
         "sshPassPhrase": {

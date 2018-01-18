@@ -7,6 +7,8 @@ echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progres
 
 export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
 EAP_USER=$2
+RHSM_USER=$4
+RHSM_PASSWORD=$5 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1

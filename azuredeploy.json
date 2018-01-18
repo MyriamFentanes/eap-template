@@ -20,13 +20,26 @@
         "description": "DNS Label for the Public IP. Must be lowercase. It should match with the following regular expression: ^[a-z][a-z0-9-]{1,61}[a-z0-9]$ or it will raise an error."
       }
     },
-    "tomcatUserName": {
+    "eapUserName": {
       "type": "string",
       "metadata": {
         "description": "User name for EAP manager"
       }
     },
-    "tomcatPassword": {
+    "eapPassword": {
+      "type": "string",
+      "metadata": {
+        "description": "Password for EAP manager"
+      }
+    },
+
+    "rhsmUserName": {
+      "type": "string",
+      "metadata": {
+        "description": "User name for EAP manager"
+      }
+    },
+    "rhsmPassword": {
       "type": "string",
       "metadata": {
         "description": "Password for EAP manager"
@@ -240,9 +253,9 @@
         "autoUpgradeMinorVersion": true,
         "settings": {
           "fileUris": [
-            "https://raw.githubusercontent.com/MyriamFentanes/eap-template/master/scripts/tomcat-setup-redhat.sh"  
+            "https://raw.githubusercontent.com/MyriamFentanes/eap-template/master/scripts/eap-setup-redhat.sh"  
           ],
-          "commandToExecute": "[concat('sh tomcat-setup-redhat.sh',' ',parameters('adminUsername'),' ',parameters('tomcatUserName'),' ',parameters('tomcatPassword'),' ',parameters('sshPassPhrase'))]"
+          "commandToExecute": "[concat('sh eap-setup-redhat.sh',' ',parameters('adminUsername'),' ',parameters('eapUserName'),' ',parameters('eapPassword'),' ',parameters('rhsmUserName'),' ',parameters('rhsmPassword'),' ',parameters('sshPassPhrase'))]"
         }
       }
     }
