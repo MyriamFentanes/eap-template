@@ -49,7 +49,8 @@ mv /home/$1/pollo/target/pollo $EAP_HOME/standalone/deployments/pollo.war
 cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
 
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
-$EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
+#$EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
+$EAP_HOME/bin/add-user.sh -u $EAP_USER -p $EAP_PASSWORD -g 'guest,mgmtgroup'
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
