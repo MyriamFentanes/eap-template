@@ -110,12 +110,12 @@
             }
           },
         {
-            "name": "default-allow-tomcat",
+            "name": "default-allow-eap",
             "properties": {
-              "description": "Allow WEB/Tomcat",
+              "description": "Allow WEB/EAP",
               "protocol": "Tcp",
               "sourcePortRange": "*",
-              "destinationPortRange": "80",
+              "destinationPortRange": "8080",
               "sourceAddressPrefix": "Internet",
               "destinationAddressPrefix": "*",
               "access": "Allow",

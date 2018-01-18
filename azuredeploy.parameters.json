@@ -6,7 +6,7 @@
             "value": "jboss"
         },
         "adminPassword": {
-            "value": "pa$word"
+            "value": "r3dh4t1!"
         },
         "dnsLabelPrefix": {
             "value": "GEN-UNIQUE"
@@ -15,10 +15,10 @@
             "value": "tomcat"
         },
         "tomcatPassword": {
-            "value": "pa$word"
+          "value": "r3dh4t1!"
         },
         "sshPassPhrase": {
-            "value": "pa$word"
+          "value": "r3dh4t1!"
         }
     }
 }
