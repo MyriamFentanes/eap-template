@@ -42,7 +42,7 @@ echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
 $EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
 
 echo "Configuring public administration interface" >> /home/$1/install.progress.txt
-sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
+#sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
 
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
