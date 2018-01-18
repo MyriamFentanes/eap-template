@@ -78,7 +78,7 @@ sed -i 's,PasswordAuthentication yes,PasswordAuthentication no,g' /etc/ssh/sshd_
 echo "Match User "$1 >> /etc/ssh/sshd_config
 echo "    ForceCommand internal-sftp -u 002" >> /etc/ssh/sshd_config
 
-# Change group of user to same as Tomcat
+# Change group of user to same as JBoss
 echo "Changing group of user "$1  >> /home/$1/install.out.txt 2>&1
 #gpasswd -d $1 $1 >> /home/$1/install.out.txt 2>&1
 #gpasswd -a $1 tomcat >> /home/$1/install.out.txt 2>&1
@@ -116,25 +116,11 @@ chown $1.tomcat /home/$1/vsts_ssh_info
 # Configure SELinux to use Linux ACL's for file protection
 setsebool -P allow_ftpd_full_access 1 >> /home/$1/install.out.txt 2>&1
 
-# Open the ftp ports on the Red Hat software firewall:
-firewall-cmd --zone=public --add-port=21/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --zone=public --add-port=13450/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --zone=public --add-port=13451/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --zone=public --add-port=13452/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --zone=public --add-port=13453/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --zone=public --add-port=13454/tcp --permanent >> /home/$1/install.out.txt 2>&1
-firewall-cmd --reload >> /home/$1/install.out.txt 2>&1
-
 # Seeing a race condition timing error so sleep to deplay
 sleep 20
 
 echo "ALL DONE!" >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
-
-echo "These original files were saved in case you want to return to default settings:" >> /home/$1/install.progress.txt
-find /etc -name ORIG_* -print >> /home/$1/install.progress.txt
-find /usr/share/tomcat/conf -name ORIG_* -print >> /home/$1/install.progress.txt
-find /usr/libexec/tomcat -name ORIG_* -print >> /home/$1/install.progress.txt
 
 
 chown $1.jboss /home/$1/install.progress.txt
