@@ -8,7 +8,8 @@ echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progres
 export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
 EAP_USER=$2
 RHSM_USER=$4
-RHSM_PASSWORD=$5 
+RHSM_PASSWORD=$5
+PROFILE=standalone 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
 subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1
@@ -31,11 +32,7 @@ cd /home/$1
 echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
 git clone https://github.com/MyriamFentanes/pollo.git >> /home/$1/install.out.txt 2>&1
 
-#Update the permissions on the Tomcat webapps and install directory
-#chown -R jboss.jboss $EAP_HOME
-
-echo "Deploying the sample pollo app" >> /home/$1/install.progress.txt
-mv /home/$1/pollo/target/pollo $EAP_HOME/standalone/deployments/pollo.war > /home/$1/install.out.txt 2>&1
+#Update the permissions on the Tomcat webapps and install direct1/install.out.txt 2>&1
 cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
 
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
@@ -44,6 +41,9 @@ $EAP_HOME/bin/add-user.sh -u 'jboss' -p 'r3dh4t1!!' -g 'guest,mgmtgroup'
 echo "Configuring public administration interface" >> /home/$1/install.progress.txt
 #sed -i 's,${jboss.bind.address.management:127.0.0.1}",${jboss.bind.address.management:0.0.0.0}",g' $EAP_HOME/standalone/configuration/standalone.xml
 
+echo "Configuring selected profile" >> /home/$1/install.progress.txt
+mv $EAP_HOME/$PROFILE/configuration/standalone.xml $EAP_HOME/$PROFILE/configuration/standalone.xml.bak
+mv $EAP_HOME/$PROFILE/configuration/standalone-full.xml $EAP_HOME/$PROFILE/configuration/standalone.xml
 
 echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
@@ -98,8 +98,8 @@ mkdir /home/$1/.ssh
 ssh-keygen -q -N $4 -f /home/$1/.ssh/id_rsa >> /home/$1/install.out.txt 2>&1
 cd /home/$1/.ssh
 cp id_rsa.pub authorized_keys
-chown -R $1.tomcat .
-chown -R $1.tomcat *
+chown -R $1.jboss .
+chown -R $1.jboss *
 echo "SSH User name:  "$1 > /home/$1/vsts_ssh_info
 echo "SSH passphrase: "$4 >> /home/$1/vsts_ssh_info
 echo "SSH Private key:" >> /home/$1/vsts_ssh_info
