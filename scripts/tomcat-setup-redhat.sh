@@ -5,7 +5,7 @@
 /bin/date +%H:%M:%S > /home/$1/install.progress.txt
 echo "ooooo      REDHAT EAP7 RPM INSTALL      ooooo" >> /home/$1/install.progress.txt
 
-export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly/"
+export EAP_HOME="/opt/rh/eap7/root/usr/share/wildfly"
 EAP_USER=$2
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
@@ -32,7 +32,7 @@ echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
 git clone https://github.com/MyriamFentanes/pollo.git >> /home/$1/install.out.txt 2>&1
 
 echo "Deploying the sample pollo app" >> /home/$1/install.progress.txt
-mv -R /home/$1/pollo $EAP_HOME/standalone/deployments/pollo.war
+mv /home/$1/pollo $EAP_HOME/standalone/deployments/pollo.war > /home/$1/install.out.txt 2>&1
 
 #wget http://archive.apache.org/dist/tomcat/tomcat-connectors/jk/tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
 #tar xvfz tomcat-connectors-1.2.41-src.tar.gz >> /home/$1/install.out.txt 2>&1
