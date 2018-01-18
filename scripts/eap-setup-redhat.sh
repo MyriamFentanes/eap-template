@@ -55,8 +55,9 @@ echo "Start EAP 7" >> /home/$1/install.progress.txt
 systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
 
 
-# Open Red Hat software firewall for port 8080:
+# Open Red Hat software firewall for port 8080 and 9990:
 firewall-cmd --zone=public --add-port=8080/tcp --permanent  >> /home/$1/install.out.txt 2>&1
+firewall-cmd --zone=public --add-port=9990/tcp --permanent  >> /home/$1/install.out.txt 2>&1
 firewall-cmd --reload  >> /home/$1/install.out.txt 2>&1
 
 echo "Done." >> /home/$1/install.progress.txt

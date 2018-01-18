@@ -122,6 +122,20 @@
               "direction": "Inbound"
             }
           },
+          {
+            "name": "default-allow-eap-admin",
+            "properties": {
+              "description": "Allow EAP/ADMIN",
+              "protocol": "Tcp",
+              "sourcePortRange": "*",
+              "destinationPortRange": "9990",
+              "sourceAddressPrefix": "Internet",
+              "destinationAddressPrefix": "*",
+              "access": "Allow",
+              "priority": 1020,
+              "direction": "Inbound"
+            }
+          },
         {
             "name": "default-allow-eap",
             "properties": {
