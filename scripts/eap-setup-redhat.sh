@@ -31,6 +31,7 @@ yum install -y git >> /home/$1/install.out.txt 2>&1
 cd /home/$1
 echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
 git clone https://github.com/MyriamFentanes/pollo.git >> /home/$1/install.out.txt 2>&1
+mv /home/$1/pollo/target/pollo $EAP_HOME/standalone/deployments/pollo.war
 
 #Update the permissions on the Tomcat webapps and install direct1/install.out.txt 2>&1
 cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
