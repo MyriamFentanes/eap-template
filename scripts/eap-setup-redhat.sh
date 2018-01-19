@@ -26,15 +26,15 @@ yum-config-manager --disable rhel-7-server-htb-rpms
 yum update
 
 echo "Installing EAP7 repos" >> /home/$1/install.progress.txt
-yum groupinstall -y jboss-eap7 > /home/$1/install.out.txt 2>&1
+yum groupinstall -y jboss-eap7 >> /home/$1/install.out.txt 2>&1
 
 echo "Enabling EAP7 service" >> /home/$1/install.progress.txt
 systemctl enable eap7-standalone.service
 
 echo "Configure EAP7 RPM file" >> /home/$1/install.progress.txt
 
-sed -i 'WILDFLY_SERVER_CONFIG=standalone-full.xml' $EAP_RPM_CONF_STANDALONE
-sed -i 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' $EAP_RPM_CONF_STANDALONE
+echo "WILDFLY_SERVER_CONFIG=standalone-full.xml" >> ${EAP_RPM_CONF_STANDALONE}
+echo 'WILDFLY_OPTS="-Djboss.bind.address.management=0.0.0.0"' >> ${EAP_RPM_CONF_STANDALONE}
 
 echo "Installing GIT" >> /home/$1/install.progress.txt
 yum install -y git >> /home/$1/install.out.txt 2>&1
@@ -43,8 +43,6 @@ cd /home/$1
 echo "Getting the sample pollo app to install" >> /home/$1/install.progress.txt
 git clone https://github.com/MyriamFentanes/pollo.git >> /home/$1/install.out.txt 2>&1
 mv /home/$1/pollo/target/pollo $EAP_HOME/standalone/deployments/pollo.war
-
-#Update the permissions on the Tomcat webapps and install direct1/install.out.txt 2>&1
 cat > $EAP_HOME/standalone/deployments/pollo.war.dodeploy
 
 echo "Configuring EAP managment user" >> /home/$1/install.progress.txt
@@ -59,7 +57,7 @@ systemctl start eap7-standalone.service > /home/$1/install.out.txt 2>&1
 firewall-cmd --zone=public --add-port=8080/tcp --permanent  >> /home/$1/install.out.txt 2>&1
 firewall-cmd --zone=public --add-port=9990/tcp --permanent  >> /home/$1/install.out.txt 2>&1
 firewall-cmd --reload  >> /home/$1/install.out.txt 2>&1
-
+    
 echo "Done." >> /home/$1/install.progress.txt
 /bin/date +%H:%M:%S >> /home/$1/install.progress.txt
 
