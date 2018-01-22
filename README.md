@@ -12,6 +12,7 @@ This template creates all of the compute resources to run JBoss EAP 7 on top of 
 - Private Virtual Network 
 - Security Configuration 
 - JBoss EAP 7
+- Sample application deployed to JBoss EAP 7.x
 
 To learn more about JBoss Enterprise Application Platform, check out:
 https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/
