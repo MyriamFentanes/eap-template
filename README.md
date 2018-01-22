@@ -1,5 +1,4 @@
-# VM-Redhat - Team Services Apache 2 Tomcat 7 installation
-
+# VM-Redhat - JBoss EAP 7 standalone mode
 <a href="https://portal.azure.com/#create/Microsoft.Template/uri/https%3A%2F%2Fraw.githubusercontent.com%2Fazure%2Fazure-quickstart-templates%2Fmaster%2Fvsts-tomcat-redhat-vm%2Fazuredeploy.json" target="_blank">
     <img src="http://azuredeploy.net/deploybutton.png"/>
 </a>
@@ -9,8 +8,20 @@
 
 This template allows you to create a RedHat VM running EAP 7 on top of RHEL 7.2 
 
-To learn more about Visual Studio Team Services (VSTS) and Team Foundation Server (TFS) support for Java, check out:
-http://java.visualstudio.com/
+To learn more about JBoss Enterprise Application Platform, check out:
+https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/
+
+## Variables description
+  adminUsername: Name of RHEL's administrator user for the VM 
+  adminPassword: Password of RHEL's administrator user for the VM 
+  rhsmUserName: Username for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS
+  rhsmPassword: Password for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS
+  dnsLabelPrefix: Prefix for the public dns used for the installation
+  eapUserName: Username for the Application Server administrator
+  eapPassword: Password for the Application Server administrato
+  eapProfile: JBoss Enterprise Application Platform profile for the server
+  sshPassPhrase: Passphrase for the ssh key to connect to the server.
+
 
 
 ## Before you Deploy to Azure
