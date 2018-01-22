@@ -16,8 +16,8 @@ RHSM_PASSWORD=$5
 PROFILE=standalone 
 echo "EAP admin user"+${EAP_USER} >> /home/$1/install.progress.txt
 echo "Initial EAP7 setup" >> /home/$1/install.progress.txt
-subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1
-
+#subscription-manager register --username mfentane@redhat.com --password Myr1am84 --auto-attach >> /home/$1/install.progress.txt 2>&1
+subscription-manager register --username $RHSM_USER --password $RHSM_PASSWORD --auto-attach >> /home/$1/install.progress.txt 2>&1
 #Change this for an eval subscription and add a parameter#
 echo "Subscribing the system to get access to EAP 7 repos" >> /home/$1/install.progress.txt
 # Install EAP7 
