@@ -12,15 +12,23 @@ To learn more about JBoss Enterprise Application Platform, check out:
 https://access.redhat.com/documentation/en-us/red_hat_jboss_enterprise_application_platform/
 
 ## Variables description
-  adminUsername: Name of RHEL's administrator user for the VM 
-  adminPassword: Password of RHEL's administrator user for the VM 
-  rhsmUserName: Username for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS
-  rhsmPassword: Password for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS
-  dnsLabelPrefix: Prefix for the public dns used for the installation
-  eapUserName: Username for the Application Server administrator
-  eapPassword: Password for the Application Server administrato
-  eapProfile: JBoss Enterprise Application Platform profile for the server
-  sshPassPhrase: Passphrase for the ssh key to connect to the server.
+  - adminUsername: Name of RHEL's administrator user for the VM .
+  
+  - adminPassword: Password of RHEL's administrator user for the VM. 
+  - rhsmUserName: Username for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS.
+  
+  - rhsmPassword: Password for the RHN account with entitlements to JBoss EAP that will be used to subcribe the OS.
+  
+  - dnsLabelPrefix: Prefix for the public dns used for the installation.
+  
+  - eapUserName: Username for the Application Server administrator.
+  
+  - eapPassword: Password for the Application Server administrator.
+  
+  - eapProfile: JBoss Enterprise Application Platform profile for the server.
+  
+  - sshPassPhrase: Passphrase for the ssh key to connect to the server.
+  
 
 
 
