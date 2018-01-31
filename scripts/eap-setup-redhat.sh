@@ -40,7 +40,7 @@ yum install -y git >> /home/$1/install.out.txt 2>&1
 
 cd /home/$1
 echo "Getting the sample dukes app to install" >> /home/$1/install.progress.txt
-git clone git@github.com:MyriamFentanes/dukes.git >> /home/$1/install.out.txt 2>&1
+git clone https://github.com/MyriamFentanes/dukes.git >> /home/$1/install.out.txt 2>&1
 mv /home/$1/dukes/target/dukes.war $EAP_HOME/standalone/deployments/dukes.war
 cat > $EAP_HOME/standalone/deployments/dukes.war.dodeploy
 
