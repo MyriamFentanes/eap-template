@@ -9,10 +9,10 @@
             "value": "r3dh4t1!"
         },
         "rhsmUserName": {
-            "value": "mfentane@redhat.com"
+            "value": "rhsmUser"
         },
         "rhsmPassword": {
-           "value": "Myr1am84!"
+           "value": "change!"
         },
         "dnsLabelPrefix": {
             "value": "GEN-UNIQUE"
