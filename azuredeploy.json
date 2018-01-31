@@ -36,13 +36,13 @@
     "rhsmUserName": {
       "type": "string",
       "metadata": {
-        "description": "User name for EAP manager"
+        "description": "User name for Red Hat subscription manager"
       }
     },
     "rhsmPassword": {
-      "type": "string",
+      "type": "securestring",
       "metadata": {
-        "description": "Password for EAP manager"
+        "description": "Password for Red Hat subscription  manager"
       }
     },
     "eapProfile": {
