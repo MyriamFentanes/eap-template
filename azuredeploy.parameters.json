@@ -18,7 +18,7 @@
             "value": "GEN-UNIQUE"
         },
         "eapUserName": {
-            "value": "tomcat"
+            "value": "jboss"
         },
         "eapPassword": {
           "value": "r3dh4t1!"
