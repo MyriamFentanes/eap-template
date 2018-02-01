@@ -3,31 +3,31 @@
     "contentVersion": "1.0.0.0",
     "parameters": {
         "adminUsername": {
-            "value": "jboss"
+          "value": "GEN-UNIQUE"
         },
         "adminPassword": {
-            "value": "r3dh4t1!"
+          "value": "GEN-PASSWORD"
         },
         "rhsmUserName": {
-            "value": "rhsmUser"
+          "value": "GEN-UNIQUE"
         },
         "rhsmPassword": {
-           "value": "change!"
+          "value": "GEN-PASSWORD"
         },
         "dnsLabelPrefix": {
             "value": "GEN-UNIQUE"
         },
         "eapUserName": {
-            "value": "jboss"
+          "value": "GEN-UNIQUE"
         },
         "eapPassword": {
-          "value": "r3dh4t1!"
+          "value": "GEN-PASSWORD"
         },
         "eapProfile": {
-           "value": "full"
+          "value": "GEN-UNIQUE"
         },
         "sshPassPhrase": {
-          "value": "r3dh4t1!"
+          "value": "GEN-PASSWORD"
         }
     }
 }
